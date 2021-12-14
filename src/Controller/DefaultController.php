@@ -12,9 +12,9 @@ class DefaultController extends AbstractController
      * @Route("/", name="app_index")
      */
     public function index(): Response
-{
-    return $this->render('program/index.html.twig', [
-       'website' => '',
-    ]);
-}
+    {
+        return $this->render('program/index.html.twig', [
+        'website' => '',
+        ]);
+    }
 }
