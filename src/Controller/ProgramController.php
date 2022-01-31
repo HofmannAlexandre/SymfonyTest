@@ -51,15 +51,13 @@ class ProgramController extends AbstractController
             return $this->redirectToRoute('program_index');
         }
         return $this->render('program/new.html.twig', [
+            "program" => $program,
             "form" => $form->createView(),
         ]);
     }
 
     /**
-     * Getting a program by id
-     *
-     * @Route("/{id}/", name="show")
-     * @return Response
+     * @Route("/{id}/", name="show", methods="GET")
      */
 
     public function show(Program $program): Response
@@ -68,6 +66,8 @@ class ProgramController extends AbstractController
             'program' => $program
         ]);
     }
+
+    
 
     /**
      * @Route("/{program}/season/{season}", name="season_show")
