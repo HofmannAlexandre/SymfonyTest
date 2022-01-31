@@ -19,7 +19,24 @@ use Symfony\Component\HttpFoundation\Request;
 class ProgramController extends AbstractController
 {
 
-     /**
+    /**
+     * @Route("/", name="index")
+     */
+    public function index(): Response
+    {
+        $programs = $this->getDoctrine()
+            ->getRepository(Program::class)
+            ->findAll();
+
+        return $this->render(
+            'program/index.html.twig',
+            [
+                'programs' => $programs
+            ]
+        );
+    }
+
+    /**
      * @Route("/new", name="new")
      */
     public function new(Request $request): Response
@@ -37,25 +54,7 @@ class ProgramController extends AbstractController
             "form" => $form->createView(),
         ]);
     }
-    /**
-     * Show all rows from Program’s entity
-     *
-     * @Route("/", name="index")
-     * @return Response A response instance
-     */
-    public function index(): Response
-    {
-        $programs = $this->getDoctrine()
-            ->getRepository(Program::class)
-            ->findAll();
 
-        return $this->render(
-            'program/index.html.twig',
-            [
-                'programs' => $programs
-            ]
-        );
-    }
     /**
      * Getting a program by id
      *
@@ -84,9 +83,9 @@ class ProgramController extends AbstractController
 
     /**
      * @Route("/{programId}/season/{seasonId}/episode/{episodeId}", name="episode_show")
-     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"program_id": "id"}})
-     * @ParamConverter("season", class="App\Entity\Season", options={"mapping": {"season_id": "id"}})
-     * @ParamConverter("episode", class="App\Entity\Episode", options={"mapping": {"episode_id": "id"}})
+     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"programId": "id"}})
+     * @ParamConverter("season", class="App\Entity\Season", options={"mapping": {"seasonId": "id"}})
+     * @ParamConverter("episode", class="App\Entity\Episode", options={"mapping": {"episodeId": "id"}})
      */
 
     public function showEpisode(Program $program, Season $season, Episode $episode): Response
