@@ -43,7 +43,7 @@ class SeasonController extends AbstractController
     }
 
     #[Route('/{id}', name: 'season_show', methods: ['GET'])]
-    public function show(Season $season): Response
+    public function show(SeasonRepository $season): Response
     {
         return $this->render('season/show.html.twig', [
             'season' => $season,
@@ -51,7 +51,7 @@ class SeasonController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'season_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Season $season, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, SeasonRepository $season, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(SeasonType::class, $season);
         $form->handleRequest($request);
@@ -69,7 +69,7 @@ class SeasonController extends AbstractController
     }
 
     #[Route('/{id}', name: 'season_delete', methods: ['POST'])]
-    public function delete(Request $request, Season $season, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, SeasonRepository $season, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$season->getId(), $request->request->get('_token'))) {
             $entityManager->remove($season);

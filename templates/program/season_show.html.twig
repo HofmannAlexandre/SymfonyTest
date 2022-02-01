@@ -10,7 +10,7 @@
     {% for episode in season.episodes %}
         {%
             set episodeUrl = path("program_episode_show", {
-                    programId: program.id,
+                    slug: program.slug,
                     seasonId: season.id,
                     episodeId: episode.id,
                 })
